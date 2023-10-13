@@ -10,9 +10,11 @@ app.engine('handlebars',expresshandlebars({
 app.set('view engine','handlebars')
 app.use(express.static(__dirname + '/public'))
 
-app.get('/',(req,res)=>{
-    res.render('about',{fortune: fortune.feFortune()})
+app.get('/', (req, res)=>res.render('home'))
+app.get('/about', (req, res)=> {
+    res.render('about', {fortune: fortune.getFortune()})
 })
+
 // custom 404 page
 app.use((req, res)=> {
     res.status(404)
@@ -24,7 +26,6 @@ app.use((err, req, res, next)=> {
     res.status(500)
     res.render('500')
 })
-
 app.listen(port, ()=> console.log(
     `Express started on http://localhost:${port}; `+
     `press Ctrl-C to terminate...`))
